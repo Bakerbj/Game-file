@@ -38,7 +38,7 @@ class Tutorial < Gosu::Window
     end
   end
   
-  Tutorial.new.show
+
 
 class Player
     def initialize
@@ -78,3 +78,5 @@ class Player
       @image.draw_rot(@x, @y, 1, @angle)
     end
 end
+
+Tutorial.new.show
