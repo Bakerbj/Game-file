@@ -13,6 +13,10 @@ class Tutorial < Gosu::Window
         @star_anim = Gosu::Image.load_tiles("media/star.png", 25, 25)
         @stars = Array.new
         @font = Gosu::Font.new(20)
+        @beep = Gosu::Sample.new("media/beep.wav")
+        @song = Gosu::Song.new("media/smashmouth.mp3")
+        @song.play
+        @enemy = Gosu::Image.new("media/tiefighter.bmp")
     end
 
     def update
@@ -38,6 +42,7 @@ class Tutorial < Gosu::Window
         @player.draw
         @stars.each { |star| star.draw }
         @font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 1.0, 1.0, Gosu::Color::YELLOW)
+        @enemy.draw(500, 100, ZOrder::UI)
     end
 
 
