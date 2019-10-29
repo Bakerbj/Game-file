@@ -2,10 +2,10 @@ require 'gosu'
 
 class Tutorial < Gosu::Window
     def initialize
-        super 640, 480
+        super 1500, 750
         self.caption = "Tutorial Game"
 
-        @background_image = Gosu::Image.new("media/space.png", :tileable => true)
+        @background_image = Gosu::Image.new("media/space.jpg", :tileable => true)
 
         @player = Player.new
         @player.warp(320, 240)
@@ -32,7 +32,7 @@ class Tutorial < Gosu::Window
         @player.move
         @player.collect_stars(@stars)
 
-        if rand(100) < 4 and @stars.size < 25
+        if rand(100) < 4 and @stars.size < 50
             @stars.push(Star.new(@star_anim))
         end
     end
@@ -86,8 +86,8 @@ class Player
     def move
         @x += @vel_x
         @y += @vel_y
-        @x %= 640
-        @y %= 480
+        @x %= 1500
+        @y %= 750
 
         @vel_x *= 0.95
         @vel_y *= 0.95
@@ -112,6 +112,8 @@ class Player
             end
         end
     end
+    # def crash(tie)
+        
 end
 
 module ZOrder
@@ -127,8 +129,8 @@ class Star
         @color.red = rand(256 - 40) + 40
         @color.green = rand(256 - 40) + 40
         @color.blue = rand(256 - 40) + 40
-        @x = rand * 640
-        @y = rand * 480
+        @x = rand * 1500
+        @y = rand * 750
     end
 
     def draw
@@ -137,6 +139,10 @@ class Star
             ZOrder::STARS, 1, 1, @color, :add)
     end
 end
+
+
+
+
 
 
 
