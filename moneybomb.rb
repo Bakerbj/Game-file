@@ -8,7 +8,7 @@ class Tutorial < Gosu::Window
         @background_image = Gosu::Image.new("media2/moneybomb.png", :tileable => true)
 
         @player = Player.new
-        @player.warp(320, 240)
+        @player.warp(320, 440)
     end
 
     def update
@@ -22,6 +22,7 @@ class Tutorial < Gosu::Window
             @player.jump
         end
         @player.move
+        @player.gravity
         
     end
 
@@ -64,11 +65,22 @@ class Player
     end
 
     def jump
-        4.times do
-            @vel_y += Gosu.offset_y(0, 0.5)
+        #@vel_y = 0
+        if @y <= 200
+            4.times do
+                @vel_y *= Gosu.offset_y(0, 0.5)
+            end
         end
+            
     end
 
+    def gravity
+        if @y >= 440
+            @vel_y -= 0.5
+        else
+            @vel_y = 0
+        end
+    end
 
     def move
         @x += @vel_x
@@ -77,11 +89,6 @@ class Player
         @y %= 460
 
         @vel_x *= 0.95
-        if @y == 200
-            @vel_y = 0
-        else
-            @vel_y 
-        end
     end
 
     def draw
