@@ -64,11 +64,8 @@ class Player
     end
 
     def jump
-        10.times do
+        4.times do
             @vel_y += Gosu.offset_y(0, 0.5)
-        end
-        10.times do
-            @vel_y += Gosu.offset_y(180, 0.5)
         end
     end
 
@@ -80,6 +77,11 @@ class Player
         @y %= 460
 
         @vel_x *= 0.95
+        if @y == 200
+            @vel_y = 0
+        else
+            @vel_y 
+        end
     end
 
     def draw
