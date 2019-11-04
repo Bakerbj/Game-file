@@ -8,27 +8,38 @@ class Tutorial < Gosu::Window
         @background_image = Gosu::Image.new("media2/moneybomb.png", :tileable => true)
 
         @player = Player.new
-        @player.warp(320, 440)
+        @player.warp(320, 410)
+
+
+        @coin_img = Gosu::Image.new("media2/coin.png")
+        @coins = Array.new
     end
 
     def update
+        
+        # @player.gravity
+
         if Gosu.button_down? Gosu::KB_LEFT or Gosu::button_down? Gosu::GP_LEFT
             @player.move_left
         end
         if Gosu.button_down? Gosu::KB_RIGHT or Gosu::button_down? Gosu::GP_RIGHT
             @player.move_right
         end
-        if Gosu.button_down? Gosu::KB_UP or Gosu::button_down? Gosu::GP_BUTTON_0
-            @player.jump
-        end
-        @player.move
-        @player.gravity
+        # if Gosu.button_down? Gosu::KB_UP or Gosu::button_down? Gosu::GP_BUTTON_0
+        #     @player.jump
+        # end
         
+        @player.move
+
+        if rand(100) < 4 and @coin.size < 3
+            @coin_img.push(Coin.new)
+        end
     end
 
     def draw
         @background_image.draw(0, 0, ZOrder::BACKGROUND)
         @player.draw
+        @coin.each { |coin| coin_img.draw }
     end
 
 
@@ -47,7 +58,6 @@ class Player
 
     def initialize
         @image = Gosu::Image.new("media2/character.png")
-        @beep = Gosu::Sample.new("media/beep.wav")
         @x = @y = @vel_x = @vel_y = @angle = 0.0
         @score = 0
     end
@@ -64,23 +74,21 @@ class Player
         @vel_x += Gosu.offset_x(90, 0.5)
     end
 
-    def jump
-        #@vel_y = 0
-        if @y <= 200
-            4.times do
-                @vel_y *= Gosu.offset_y(0, 0.5)
-            end
-        end
-            
-    end
+    # def jump
+    #     #@vel_y = 0
 
-    def gravity
-        if @y >= 440
-            @vel_y -= 0.5
-        else
-            @vel_y = 0
-        end
-    end
+    #     if @y == 410
+    #             @vel_y += Gosu.offset_y(0, 5)
+    #     end
+    # end
+
+    # def gravity
+    #     if @vel_y > 0
+    #         @vel_y *= 0.95
+    #     elsif @vel_y == 0 && @y <= 410
+    #         @y - 10
+    #     end
+    # end
 
     def move
         @x += @vel_x
@@ -98,7 +106,23 @@ class Player
 end
 
 module ZOrder
-    BACKGROUND, STARS, PLAYER, UI = *0..3
+    BACKGROUND, COIN, PLAYER, UI = *0..3
 end
+
+class Coin
+    attr_reader :x, :y
+
+    def initialize
+        @image = Gosu::Image.new("media2/coin.png")
+        @x = rand * 620
+        @y = 0
+    end
+   
+
+
+
+end
+
+
 
 Tutorial.new.show
