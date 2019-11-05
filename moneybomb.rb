@@ -10,7 +10,7 @@ class Tutorial < Gosu::Window
         @player = Player.new
         @player.warp(320, 410)
 
-
+        
         @coin_img = Gosu::Image.new("media2/coin.png")
         @coins = Array.new
     end
@@ -18,7 +18,6 @@ class Tutorial < Gosu::Window
     def update
         
         # @player.gravity
-
         if Gosu.button_down? Gosu::KB_LEFT or Gosu::button_down? Gosu::GP_LEFT
             @player.move_left
         end
@@ -28,10 +27,10 @@ class Tutorial < Gosu::Window
         # if Gosu.button_down? Gosu::KB_UP or Gosu::button_down? Gosu::GP_BUTTON_0
         #     @player.jump
         # end
-        
         @player.move
 
-        if rand(100) < 4 and @coins.size < 4
+
+        if rand(200) < 2 and @coins.size < 10
             @coins.push(Coin.new)
         end
     end
@@ -114,19 +113,23 @@ class Coin
 
     def initialize
         @color = Gosu::Color::BLACK.dup
-        @color.red = rand(256 - 40) + 40
-        @color.green = rand(256 - 40) + 40
-        @color.blue = rand(256 - 40) + 40
+        @color.red = 200
+        @color.green = 300
+        @color.blue = 0
         @x = rand * 620
         @y = 40
     end
 
+  
     def draw
         image = Gosu::Image.new("media2/coin.png")
         image.draw(@x - image.width / 2.0, @y - image.height / 2.0,
         ZOrder::COINS, 1, 1, @color, :add)
     end
-
+    # def fall
+    #     @y = @y + 20
+    #     @y %= 460
+    # end
 
 end
 
