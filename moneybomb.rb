@@ -39,7 +39,7 @@ class Tutorial < Gosu::Window
     def draw
         @background_image.draw(0, 0, ZOrder::BACKGROUND)
         @player.draw
-        @coins.each { |coin_img| coin_img.draw }
+        @coins.each { |coin| coin.draw }
     end
 
 
@@ -113,13 +113,18 @@ class Coin
     attr_reader :x, :y
 
     def initialize
-        @image = Gosu::Image.new("media2/coin.png")
+        @color = Gosu::Color::BLACK.dup
+        @color.red = rand(256 - 40) + 40
+        @color.green = rand(256 - 40) + 40
+        @color.blue = rand(256 - 40) + 40
         @x = rand * 620
-        @y = 0
+        @y = 40
     end
 
     def draw
-        @image.draw
+        image = Gosu::Image.new("media2/coin.png")
+        image.draw(@x - image.width / 2.0, @y - image.height / 2.0,
+        ZOrder::COINS, 1, 1, @color, :add)
     end
 
 

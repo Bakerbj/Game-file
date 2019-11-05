@@ -41,8 +41,8 @@ class Tutorial < Gosu::Window
         @background_image.draw(0, 0, ZOrder::BACKGROUND)
         @player.draw
         @stars.each { |star| star.draw }
-        @font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 1.0, 1.0, Gosu::Color::YELLOW)
-        @enemy.draw(500, 100, ZOrder::UI)
+        # @font.draw("Score: #{@player.score}", 10, 10, ZOrder::UI, 1.0, 1.0, Gosu::Color::YELLOW)
+        # @enemy.draw(500, 100, ZOrder::UI)
     end
 
 
