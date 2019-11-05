@@ -31,15 +31,15 @@ class Tutorial < Gosu::Window
         
         @player.move
 
-        if rand(100) < 4 and @coin.size < 3
-            @coin_img.push(Coin.new)
+        if rand(100) < 4 and @coins.size < 4
+            @coins.push(Coin.new)
         end
     end
 
     def draw
         @background_image.draw(0, 0, ZOrder::BACKGROUND)
         @player.draw
-        @coin.each { |coin| coin_img.draw }
+        @coins.each { |coin_img| coin_img.draw }
     end
 
 
@@ -106,7 +106,7 @@ class Player
 end
 
 module ZOrder
-    BACKGROUND, COIN, PLAYER, UI = *0..3
+    BACKGROUND, COINS, PLAYER, UI = *0..3
 end
 
 class Coin
@@ -117,8 +117,10 @@ class Coin
         @x = rand * 620
         @y = 0
     end
-   
 
+    def draw
+        @image.draw
+    end
 
 
 end
